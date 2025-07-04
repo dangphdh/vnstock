@@ -30,9 +30,9 @@ class Finance(BaseAdapter):
         get_all: bool = True,
         show_log: bool = False
     ):
-        # Validate the source to only accept vci or tcbs
-        if source.lower() not in ["vci", "tcbs"]:
-            raise ValueError("Lớp Finance chỉ nhận giá trị tham số source là 'VCI' hoặc 'TCBS'.")
+        # Validate the source to only accept vci or tcbs or ssi
+        if source.lower() not in ["vci", "tcbs", "ssi"]:
+            raise ValueError("Lớp Finance chỉ nhận giá trị tham số source là 'VCI' hoặc 'TCBS' hoặc 'SSI'.")
         # Validate the period to accept only year or quarter
         if period.lower() not in ["year", "quarter"]:
             raise ValueError("Lớp Finance chỉ nhận giá trị tham số period là 'year' hoặc 'quarter'.")

@@ -43,7 +43,7 @@ class BaseComponent:
         raise NotImplementedError("Phương thức này phải được triển khai bởi các lớp con")
 
 class StockComponents(BaseComponent):
-    SUPPORTED_SOURCES = ["VCI", "TCBS", "MSN"]
+    SUPPORTED_SOURCES = ["VCI", "TCBS", "MSN", "SSI"]
 
     def __init__(self, symbol: str, source: str = Config.DEFAULT_SOURCE, show_log: bool = True):
         super().__init__(symbol, source)
@@ -75,6 +75,13 @@ class StockComponents(BaseComponent):
         elif self.source == 'MSN':
             self.quote = Quote(self.symbol, 'MSN')
             self.listing = Listing(source='MSN')
+        elif self.source == 'SSI':
+            self.quote = Quote(self.symbol, 'SSI')
+            self.listing = Listing(source='SSI')
+            self.trading = Trading(self.symbol, source='SSI')
+            # SSI doesn't have screener functionality like TCBS
+            self.screener = None
+            logger.info("SSI không cung cấp tính năng screener.")
 
     def _load_data_source(self):
         """
@@ -93,7 +100,7 @@ class StockComponents(BaseComponent):
         self._initialize_components()
 
 class Quote(BaseComponent):
-    SUPPORTED_SOURCES = ["VCI", "TCBS", "MSN"]
+    SUPPORTED_SOURCES = ["VCI", "TCBS", "MSN", "SSI"]
 
     def __init__(self, symbol: str, source: str = Config.DEFAULT_SOURCE):
         super().__init__(symbol, source)
@@ -128,7 +135,7 @@ class Quote(BaseComponent):
         return self.data_source.price_depth(**kwargs)
 
 class Listing(BaseComponent):
-    SUPPORTED_SOURCES = ["VCI", "MSN"]
+    SUPPORTED_SOURCES = ["VCI", "MSN", "SSI"]
 
     def __init__(self, source: str = Config.DEFAULT_SOURCE):
         super().__init__(source=source)
@@ -174,7 +181,7 @@ class Listing(BaseComponent):
         return self.data_source.all_government_bonds(**kwargs)
 
 class Trading(BaseComponent):
-    SUPPORTED_SOURCES = ["VCI", "TCBS"]
+    SUPPORTED_SOURCES = ["VCI", "TCBS", "SSI"]
 
     def __init__(self, symbol: Optional[str] = 'VN30F1M', source: str = Config.DEFAULT_SOURCE):
         super().__init__(symbol, source)
@@ -193,7 +200,7 @@ class Trading(BaseComponent):
         return self.data_source.price_board(symbols_list, **kwargs)
 
 class Company(BaseComponent):
-    SUPPORTED_SOURCES = ["TCBS", "VCI"]
+    SUPPORTED_SOURCES = ["TCBS", "VCI", "SSI"]
 
     def __init__(self, symbol: Optional[str] = 'ACB', source: str = "TCBS"):
         super().__init__(symbol, source)
@@ -244,7 +251,7 @@ class Company(BaseComponent):
         return self.data_source.dividends(**kwargs)
 
 class Finance(BaseComponent):
-    SUPPORTED_SOURCES = ["TCBS", "VCI"]
+    SUPPORTED_SOURCES = ["TCBS", "VCI", "SSI"]
     SUPPORTED_PERIODS = ["quarter", "annual"]
 
     def __init__(

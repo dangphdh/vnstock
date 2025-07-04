@@ -28,9 +28,9 @@ class Quote(BaseAdapter):
         random_agent: bool = False,
         show_log: bool = False
     ):
-        # Validate the source to only accept vci or tcbs or msn
-        if source.lower() not in ["vci", "tcbs", "msn"]:
-            raise ValueError("Lớp Quote chỉ nhận giá trị tham số source là 'VCI' hoặc 'TCBS' hoặc 'MSN'.")
+        # Validate the source to only accept vci or tcbs or msn or ssi
+        if source.lower() not in ["vci", "tcbs", "msn", "ssi"]:
+            raise ValueError("Lớp Quote chỉ nhận giá trị tham số source là 'VCI' hoặc 'TCBS' hoặc 'MSN' hoặc 'SSI'.")
         # BaseAdapter will discover vnstock.explorer.<real_source>.quote
         # and pass only the kwargs its __init__ accepts (symbol, random_agent, show_log).
         super().__init__(

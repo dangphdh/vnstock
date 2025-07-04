@@ -34,9 +34,9 @@ class Company(BaseAdapter):
         random_agent: bool = False,
         show_log: bool = False
     ):
-        # Validate the source to only accept vci or tcbs
-        if source.lower() not in ["vci", "tcbs"]:
-            raise ValueError("Lớp Company chỉ nhận giá trị tham số source là 'VCI' hoặc 'TCBS'.")
+        # Validate the source to only accept vci or tcbs or ssi
+        if source.lower() not in ["vci", "tcbs", "ssi"]:
+            raise ValueError("Lớp Company chỉ nhận giá trị tham số source là 'VCI' hoặc 'TCBS' hoặc 'SSI'.")
         # BaseAdapter will discover vnstock.explorer.<real_source>.company
         # and pass only the kwargs its __init__ accepts (random_agent, show_log).
         super().__init__(

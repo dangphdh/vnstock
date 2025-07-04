@@ -33,9 +33,9 @@ class Listing(BaseAdapter):
         random_agent: bool = False,
         show_log: bool = False
     ):
-        # Validate the source to only accept vci or msn
-        if source.lower() not in ["vci", "msn"]:
-            raise ValueError("Lớp Listing chỉ nhận giá trị tham số source là 'VCI' hoặc 'MSN'.")
+        # Validate the source to only accept vci or msn or ssi
+        if source.lower() not in ["vci", "msn", "ssi"]:
+            raise ValueError("Lớp Listing chỉ nhận giá trị tham số source là 'VCI' hoặc 'MSN' hoặc 'SSI'.")
         # BaseAdapter will discover vnstock.explorer.<real_source>.listing
         # and pass only the kwargs its __init__ accepts (random_agent, show_log).
         super().__init__(

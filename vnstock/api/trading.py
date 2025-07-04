@@ -29,9 +29,9 @@ class Trading(BaseAdapter):
         random_agent: bool = False,
         show_log: bool = False
     ):
-        # Validate to accept vci, tcbs as source
-        if source.lower() not in ["vci", "tcbs"]:
-            raise ValueError("Lớp Trading chỉ nhận giá trị tham số source là 'VCI' hoặc 'TCBS'.")
+        # Validate to accept vci, tcbs, ssi as source
+        if source.lower() not in ["vci", "tcbs", "ssi"]:
+            raise ValueError("Lớp Trading chỉ nhận giá trị tham số source là 'VCI' hoặc 'TCBS' hoặc 'SSI'.")
         super().__init__(
             source=source,
             symbol=symbol,
